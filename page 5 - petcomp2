@@ -1,0 +1,202 @@
+import '../appointment_details_copy/appointment_details_copy_widget.dart';
+import '../backend/backend.dart';
+import '../flutter_flow/flutter_flow_theme.dart';
+import '../flutter_flow/flutter_flow_util.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+class AppointmentDetailsCopyCopyWidget extends StatefulWidget {
+  const AppointmentDetailsCopyCopyWidget({
+    Key? key,
+    this.appointmentDetails,
+  }) : super(key: key);
+
+  final DocumentReference? appointmentDetails;
+
+  @override
+  _AppointmentDetailsCopyCopyWidgetState createState() =>
+      _AppointmentDetailsCopyCopyWidgetState();
+}
+
+class _AppointmentDetailsCopyCopyWidgetState
+    extends State<AppointmentDetailsCopyCopyWidget> {
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => AppointmentDetailsCopyWidget(),
+        ),
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<AppointmentsRecord>(
+      stream: AppointmentsRecord.getDocument(widget.appointmentDetails!),
+      builder: (context, snapshot) {
+        // Customize what your widget looks like when it's loading.
+        if (!snapshot.hasData) {
+          return Center(
+            child: SizedBox(
+              width: 40,
+              height: 40,
+              child: SpinKitPumpingHeart(
+                color: FlutterFlowTheme.of(context).primaryColor,
+                size: 40,
+              ),
+            ),
+          );
+        }
+        final appointmentDetailsCopyCopyAppointmentsRecord = snapshot.data!;
+        return Scaffold(
+          key: scaffoldKey,
+          backgroundColor: Color(0xFFE0ECFF),
+          drawer: Drawer(
+            elevation: 16,
+            child: ListView(
+              padding: EdgeInsets.zero,
+              scrollDirection: Axis.vertical,
+              children: [
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [],
+                ),
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    ListView(
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      children: [
+                        Align(
+                          alignment: AlignmentDirectional(-0.75, 0),
+                          child: Text(
+                            'Talk with CURO pet',
+                            style:
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'Outfit',
+                                      fontSize: 20,
+                                    ),
+                          ),
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Align(
+                  alignment: AlignmentDirectional(-0.75, 0),
+                  child: Text(
+                    'Quick Self Check',
+                    style: FlutterFlowTheme.of(context).bodyText1.override(
+                          fontFamily: 'Outfit',
+                          fontSize: 20,
+                        ),
+                  ),
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [],
+                ),
+                Align(
+                  alignment: AlignmentDirectional(-0.75, 0),
+                  child: Text(
+                    'Happiness Road',
+                    style: FlutterFlowTheme.of(context).bodyText1.override(
+                          fontFamily: 'Outfit',
+                          fontSize: 20,
+                        ),
+                  ),
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [],
+                ),
+                Align(
+                  alignment: AlignmentDirectional(-0.75, 0),
+                  child: Text(
+                    'Talk the thought',
+                    style: FlutterFlowTheme.of(context).bodyText1.override(
+                          fontFamily: 'Outfit',
+                          fontSize: 20,
+                        ),
+                  ),
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [],
+                ),
+                Align(
+                  alignment: AlignmentDirectional(-0.75, 0),
+                  child: Text(
+                    'Your journey record',
+                    style: FlutterFlowTheme.of(context).bodyText1.override(
+                          fontFamily: 'Outfit',
+                          fontSize: 20,
+                        ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          appBar: AppBar(
+            backgroundColor: Color(0xFFE0ECFF),
+            automaticallyImplyLeading: false,
+            leading: InkWell(
+              onTap: () async {
+                Navigator.pop(context);
+              },
+              child: Icon(
+                Icons.menu,
+                color: FlutterFlowTheme.of(context).background,
+                size: 32,
+              ),
+            ),
+            title: Align(
+              alignment: AlignmentDirectional(0.95, 0),
+              child: Container(
+                width: 50,
+                height: 50,
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                ),
+                child: Image.asset(
+                  'assets/images/Screenshot_2022-10-23_204423.png',
+                ),
+              ),
+            ),
+            actions: [],
+            centerTitle: false,
+            elevation: 0,
+          ),
+          body: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Image.asset(
+                'assets/images/Relaxing_Meditation_(6).png',
+                width: 400,
+                height: 650,
+                fit: BoxFit.cover,
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
